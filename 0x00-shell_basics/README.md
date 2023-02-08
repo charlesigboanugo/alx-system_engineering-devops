@@ -12,3 +12,6 @@ A shell script that displays the contents of current working directory in long f
 
 # 4-listmorefiles
 A shell script that displays the contents of current working directory including hidden files in long format
+
+# 5-listfilesdigitonly
+A shell script that displays the contents of current working directory including hidden files with user and group IDs in long format
