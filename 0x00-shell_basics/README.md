@@ -3,3 +3,6 @@ A shell script that prints the absolute path of the current working directory
 
 # 1-listit
 A shell script that displays the contents of current working directory
+
+# 2-bring_me_home
+A shell script that changes the working directory to the user's home directory
