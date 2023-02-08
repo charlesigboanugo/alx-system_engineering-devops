@@ -51,3 +51,6 @@ A script that deletes all files in the current working directory that end with t
 
 # 102-tree
 A script that creates the directories welcome/, welcome/to/ and welcome/to/school in the current directory.
+
+# 103-commas
+A script that lists all the files and directories of the current directory, separated by commas (,)
