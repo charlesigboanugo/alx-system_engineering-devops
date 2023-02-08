@@ -6,3 +6,6 @@ A shell script that displays the contents of current working directory
 
 # 2-bring_me_home
 A shell script that changes the working directory to the user's home directory
+
+# 3-listfiles
+A shell script that displays the contents of current working directory in long format
