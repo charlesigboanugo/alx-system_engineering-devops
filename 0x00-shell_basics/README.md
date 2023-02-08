@@ -18,3 +18,6 @@ A shell script that displays the contents of current working directory including
 
 # 6-firstdirectory
 A shell script that creates a directory named my_first_directory in the /tmp/ directory.
+
+# 7-movethatfile
+A shell script that moves the file betty from /tmp/ to /tmp/my_first_directory.
