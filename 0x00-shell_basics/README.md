@@ -9,3 +9,6 @@ A shell script that changes the working directory to the user's home directory
 
 # 3-listfiles
 A shell script that displays the contents of current working directory in long format
+
+# 4-listmorefiles
+A shell script that displays the contents of current working directory including hidden files in long format
