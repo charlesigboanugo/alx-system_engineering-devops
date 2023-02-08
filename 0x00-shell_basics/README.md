@@ -27,3 +27,6 @@ A shell script that deletes the file betty from /tmp/my_first_directory.
 
 # 9-firstdirdeletion
 A shell script that deletes the dir my_first_directory from /tmp/
+
+# 10-back
+A shell script that changes the working directory to the previous one
