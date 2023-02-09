@@ -16,5 +16,5 @@ A script that creates an empty file 4-empty
 # 5-execute
 A script add execute permission to the owner of the file hello
 
-#6-multiple_permissions
+# 6-multiple_permissions
 A script that adds execute permission to the owner and the group owner, and read permission to other users, to the file hello
