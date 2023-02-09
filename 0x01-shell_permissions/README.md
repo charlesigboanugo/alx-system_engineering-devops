@@ -30,3 +30,6 @@ A script that sets permissions as follows:
 
 # 9-John_Doe
 A script that sets the mode of the file hello to this: -rwxr-x-wx 
+
+# 10-mirror_permissions
+A script that sets the mode of the file hello the same as olleh’s mode.
