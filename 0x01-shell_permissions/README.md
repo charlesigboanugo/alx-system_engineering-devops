@@ -21,3 +21,9 @@ A script that adds execute permission to the owner and the group owner, and read
 
 # 7-everybody
 A script that adds execution permission to the owner, the group owner and the other users, to the file hello
+
+# 8-James_Bond
+A script that sets permissions as follows:
+* Owner: no permission at all
+* Group: no permission at all
+* Other users: all the permissions
