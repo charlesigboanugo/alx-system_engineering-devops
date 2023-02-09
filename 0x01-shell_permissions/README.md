@@ -12,3 +12,6 @@ A script that changes the owner of the file hello to the user betty
 
 # 4-empty
 A script that creates an empty file 4-empty
+
+# 5-execute
+A script add execute permission to the owner of the file hello
