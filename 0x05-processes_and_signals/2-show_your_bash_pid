@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#displays bash lines in ps -A uf
+# shellcheck disable=SC2009
+ps -A uf | grep "bash"

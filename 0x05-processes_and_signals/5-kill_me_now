@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#kills the 4-to_infinity_and_beyond script
+kill -SIGTERM "$(pgrep -f "./4-to_infinity_and_beyond" | cut -f 1)"

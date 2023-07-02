@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#attempts to kill the 7-highlander script using pkill SIGTERM
+pkill -SIGTERM -f "./7-highlander"

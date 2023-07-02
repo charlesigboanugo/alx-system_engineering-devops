@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#outputs a sequence 1-10
+for i in $(seq 1 10); do
+    echo Holberton School
+    ((i++))
+done

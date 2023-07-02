@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#lists all processes running on the system in long format
+ps -A uf

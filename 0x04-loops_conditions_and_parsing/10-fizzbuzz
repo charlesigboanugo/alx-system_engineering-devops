@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#output a sequence of numbers, replacing every multiple of 3 with Fizz, every
+#multiple of 5 with Buzz, and every multiple of both with FizzBuzz from 1 to 100
+for i in $(seq 1 100); do
+    if ! (( i % 15 )); then
+	echo FizzBuzz
+    elif ! (( i % 5 )); then
+	echo Buzz
+    elif ! (( i % 3 )); then
+	echo Fizz
+    else
+	echo "$i"
+    fi
+done
