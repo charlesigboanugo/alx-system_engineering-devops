@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #output some information about a file
-file="holbertonschool"
+file="Bestschool"
 if [ -e $file ]; then
     echo $file file exists
     if [ -s $file ]; then

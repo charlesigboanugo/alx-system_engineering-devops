@@ -2,7 +2,7 @@
 #output Holberton School 10 times
 i=0
 while [ $i -lt 10 ]; do
-    echo Holberton School
+    echo Best School
     ((i++))
     if [ $i -eq 9 ]; then
        echo Hi

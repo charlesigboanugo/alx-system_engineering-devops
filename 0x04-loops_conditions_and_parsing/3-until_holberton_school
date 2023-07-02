@@ -2,6 +2,6 @@
 #output "Holberton School" 10 times
 i=0
 until [ $i -eq 10 ]; do
-    echo Holberton School
+    echo Best School
     ((i++))
 done
