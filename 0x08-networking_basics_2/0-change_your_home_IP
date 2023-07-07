@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
+#A script that configures an Ubuntu server
 echo "127.0.0.2\t\t\tlocalhost\n8.8.8.8\t\t\tfacebook.com\n" > hosts
 cp -f hosts /etc/hosts

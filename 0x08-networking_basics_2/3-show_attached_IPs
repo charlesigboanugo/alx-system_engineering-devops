@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-netstat -tn | tail -n +3 | awk '{print $5}'
