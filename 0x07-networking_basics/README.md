@@ -1,1 +1,0 @@
-#Some simple questions and answers about the OSI model and netstat/ss/ping
