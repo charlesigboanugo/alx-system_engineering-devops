@@ -1,3 +1,5 @@
+# configures ssh client
+
 file { '/home/your_username/.ssh/config':
   ensure  => present,
   content => "Host example.com\n\
