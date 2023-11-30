@@ -4,7 +4,7 @@ class { 'python':
   version => 'system',
 }
 
-exec { '1-install_a_package.pp':
+exec { '1-install_a_package':
   command => '/usr/bin/pip3 install Flask==2.1.0',
   path    => ['/usr/bin'],
   unless  => '/usr/bin/pip3 show Flask | grep -q "Version: 2.1.0"',
