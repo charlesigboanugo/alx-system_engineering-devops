@@ -1,12 +1,12 @@
 # configures ssh client
 
-file { '/home/your_username/.ssh/config':
+file { '/etc/ssh/ssh_config':
   ensure  => present,
-  content => "Host example.com\n\
+  content => "Host *\
 \tIdentityFile ~/.ssh/school\n\
 \tPasswordAuthentication no\n",
-  owner   => 'your_username',
-  group   => 'your_username',
+  owner   => 'root',
+  group   => 'root',
   mode    => '0600',
 }
 
