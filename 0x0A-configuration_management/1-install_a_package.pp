@@ -6,7 +6,7 @@ class { 'python':
 
 exec { 'install_flask':
   command => '/usr/bin/pip3 install Flask',
-  path    => ['/usr/bin'],
+  path    => ['/usr/bin, '/usr/sbin'],
   unless  => '/usr/bin/pip3 show Flask',
 }
 
