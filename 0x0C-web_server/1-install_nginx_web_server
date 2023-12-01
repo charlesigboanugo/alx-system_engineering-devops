@@ -1,7 +1,20 @@
 #!/usr/bin/env bash
 # bash script to install nginx
+
+source_file='/usr/share/nginx/html/index.html'
+dest_file='/usr/share/nginx/html/index.txt'
+
 apt-get -y update
 apt-get -y install nginx
-mv /usr/share/nginx/html/index.html /usr/share/nginx/html/index.txt
+
+# Update the Nginx default configuration file to reset root
+sed -i 's|root /var/www/html;|root /usr/share/nginx/html;|' /etc/nginx/sites-available/default
+
+#if source file exits, back it up
+if [ -e "$source_file" ]; then
+	mv "$source_file" "$dest_file"
+fi
+# Ensure the new root exists
+mkdir -p /usr/share/nginx/html
 echo "Hello World!" > /usr/share/nginx/html/index.html
 service nginx restart
