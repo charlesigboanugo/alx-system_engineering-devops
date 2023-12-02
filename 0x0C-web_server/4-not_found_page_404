@@ -43,7 +43,7 @@ sed -i '/server_name _;/!b;
 \
         location /redirect_me {\
                 rewrite ^ https://youtube.com permanent;\
-        }\
+        }
 ' "$NGINX_CONFIG"
 
 service nginx restart
