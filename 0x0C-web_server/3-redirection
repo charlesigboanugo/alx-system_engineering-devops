@@ -1,9 +1,41 @@
 #!/usr/bin/env bash
-# bash script to make /redirect_me redirect to another site
+#configures a brand new ubuntu machine, i.e installs nginx and configures it
+
+NGINX_CONFIG='/etc/nginx/sites-available/default'
+DEFAULT_ROOT='/var/www/html'
+NEW_ROOT='/usr/share/nginx/html'
+BACKUP_INDEX="${NEW_ROOT}/index.txt"
+INDEX_PAGE="${NEW_ROOT}/index.html"
+ERROR_PAGE="${NEW_ROOT}/404.html"
+
 apt-get -y update
 apt-get -y install nginx
-mv /usr/share/nginx/html/index.html /usr/share/nginx/html/index.txt
-echo "Hello World!" > /usr/share/nginx/html/index.html
-new_string=".rules\n\t\trewrite ^\/redirect_me https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;\n"
-sed -i "s/.rules/$new_string/" /etc/nginx/sites-available/default
+
+#Changes the root of the nginx server to NEW_ROOT
+if [ -e "$NGINX_CONFIG" ]; then
+        sed -i "s|root ${DEFAULT_ROOT}|root ${NEW_ROOT}|" "${NGINX_CONFIG}"
+else
+        echo "Missing configuration file" >&2
+        exit 1
+fi
+
+#Backup the default index page
+if [ -e "$INDEX_PAGE" ]; then
+        mv "$INDEX_PAGE" "$BACKUP_INDEX"
+fi
+
+echo "Hello World!" > "$INDEX_PAGE"
+echo "Ceci n'est pas une page" > "$ERROR_PAGE"
+
+#Permanently redirect /redirect_me
+sed -i '/server_name _;/!b;
+        a\
+\
+        # Add redirect for /redirect_me\
+\
+        location /redirect_me {\
+                rewrite ^ https://youtube.com permanent;\
+        }\
+' "$NGINX_CONFIG"
+
 service nginx restart
