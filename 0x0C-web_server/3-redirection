@@ -28,7 +28,7 @@ echo "Hello World!" > "$INDEX_PAGE"
 echo "Ceci n'est pas une page" > "$ERROR_PAGE"
 
 #Permanently redirect /redirect_me
-sed -i '/server_name _;/!b;
+sed -i '"/server_name _;/!b;
         a\
 \
         # Add redirect for /redirect_me\
@@ -36,6 +36,6 @@ sed -i '/server_name _;/!b;
         location /redirect_me {\
                 rewrite ^ https://youtube.com permanent;\
         }
-' "$NGINX_CONFIG"
+"' "$NGINX_CONFIG"
 
 service nginx restart
