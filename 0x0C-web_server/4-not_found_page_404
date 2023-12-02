@@ -42,7 +42,7 @@ sed -i '/server_name _;/!b;
         # Add redirect for /redirect_me\
 \
         location /redirect_me {\
-                rewrite ^ https://youtube.com permanent;\
+                rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\
         }
 ' "$NGINX_CONFIG"
 
