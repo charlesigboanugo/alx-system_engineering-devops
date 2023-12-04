@@ -1,9 +1,9 @@
 # installs flask from pip3
 
 package { 'pip3':
-	ensure 	=> installed
+  ensure => installed
 }
 exec { 'install flask':
-	command => '/usr/bin/pip3 install flask',
-	require => Package('pip3')
+  command => '/usr/bin/pip3 install flask',
+  require => Package('pip3')
 }
