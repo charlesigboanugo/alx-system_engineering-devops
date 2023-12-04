@@ -5,5 +5,5 @@ package { 'pip3':
 }
 exec { 'install flask':
   command => '/usr/bin/pip3 install flask==2.1.0',
-  require => Package('pip3')
+  require => Package['pip3']
 }
