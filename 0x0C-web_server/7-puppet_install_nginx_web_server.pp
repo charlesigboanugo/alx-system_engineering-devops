@@ -16,7 +16,7 @@ file { '/usr/share/nginx/html/index.html':
   mode    => '0744',
   owner   => 'www-data',
   group   => 'www-data',
-  content => "Hello World\n!",
+  content => "Hello World!\n",
   require => Package['nginx']
 }
 file { '/usr/share/nginx/html/404.html':
