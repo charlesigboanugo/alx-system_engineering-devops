@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#Configures a brand new ubuntu machine, i.e installs nginx and configures it
+
+NGINX_CONFIG='/etc/nginx/sites-available/default'
+DEFAULT_ROOT='/var/www/html'
+NEW_ROOT='/usr/share/nginx/html'
+BACKUP_INDEX="${NEW_ROOT}/index.txt"
+INDEX_PAGE="${NEW_ROOT}/index.html"
+
+apt-get -y update
+apt-get -y install nginx
+
+#Changes the root of the nginx server to NEW_ROOT
+if [ -e "$NGINX_CONFIG" ]; then
+        sed -i "s|root ${DEFAULT_ROOT}|root ${NEW_ROOT}|" "${NGINX_CONFIG}"
+else
+        echo "Missing configuration file" >&2
+        exit 1
+fi
+
+#Backup the default index page
+if [ -e "$INDEX_PAGE" ]; then
+        mv "$INDEX_PAGE" "$BACKUP_INDEX"
+fi
+
+echo "Hello World!" > "$INDEX_PAGE"
+
+service nginx restart
