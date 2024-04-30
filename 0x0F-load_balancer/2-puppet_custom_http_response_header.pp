@@ -1,4 +1,5 @@
 # configures Nginx server on my new ubuntu machine
+# adds http response header to the server
 
 service {'nginx':
   ensure    => 'running',
@@ -32,12 +33,11 @@ file { '/etc/nginx/sites-available/default':
   mode    => '0744',
   owner   => 'root',
   group   => 'root',
-  content => @(CONTENT)
-	server {
-  	listen 80 default_server;                    
-	listen [::]:80 default_server;
-	
-	# SSL configuration
+  content => inline_template("server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        # SSL configuration
         #
         # listen 443 ssl default_server;
         # listen [::]:443 ssl default_server;
@@ -52,17 +52,18 @@ file { '/etc/nginx/sites-available/default':
         # Don't use them in a production server!
 
         # include snippets/snakeoil.conf;
-
-        root /usr/share/nginx/html;
+                                                                                          root /usr/share/nginx/html;
 
         # Add index.php to the list if you are using PHP
         index index.html index.htm index.nginx-debian.html;
 
         server_name _;
 
-        # Add custom 404 page
+        # Add custom 404 page                                                     
+        error_page 404 /404.html;                                                 
+        # Apply custom header globally for all locations
 
-	error_page 404 /404.html;
+        add_header X-Served-By <%= `/bin/hostname` %>;
 
         location = /404.html {
                 internal;
@@ -77,7 +78,7 @@ file { '/etc/nginx/sites-available/default':
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
+                try_files \$uri \$uri/ =404;
         }
 
         # pass PHP scripts to FastCGI server
@@ -114,8 +115,8 @@ file { '/etc/nginx/sites-available/default':
 #       index index.html;
 #
 #       location / {
-#               try_files $uri $uri/ =404;
+#               try_files \$uri \$uri/ =404;
 #       }
-#}'
-CONTENT
+#}
+")
 }

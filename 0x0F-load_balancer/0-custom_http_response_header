@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #configures a brand new ubuntu machine, i.e installs nginx and configures it
+#adds http response header
 
 NGINX_CONFIG='/etc/nginx/sites-available/default'
 DEFAULT_ROOT='/var/www/html'
