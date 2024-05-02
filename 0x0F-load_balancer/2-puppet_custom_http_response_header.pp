@@ -63,7 +63,7 @@ file { '/etc/nginx/sites-available/default':
         error_page 404 /404.html;                                                 
         # Apply custom header globally for all locations
 
-        add_header X-Served-By <%= `/usr/bin/uname -n` %>;
+        add_header X-Served-By $::hostname;
 
         location = /404.html {
                 internal;
