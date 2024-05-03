@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# bash script that prints subdomain records of A domain
+
+TEMP=""
+
+if [[ $# -lt 2 ]]; then
+    TEMP=$(dig "www.$1" | grep -A1 'ANSWER SECTION:' | tail -1)
+    echo "$TEMP" | awk '{printf "The subdomain www is a %s record and points to %s\n", $4, $5}'
+    TEMP=$(dig "lb-01.$1" | grep -A1 'ANSWER SECTION:' | tail -1)
+    echo "$TEMP" | awk '{printf "The subdomain lb-01 is a %s record and points to %s\n", $4, $5}'
+    TEMP=$(dig "web-01.$1" | grep -A1 'ANSWER SECTION:' | tail -1)
+    echo "$TEMP" | awk '{printf "The subdomain web-01 is a %s record and points to %s\n", $4, $5}'
+    TEMP=$(dig "web-02.$1" | grep -A1 'ANSWER SECTION:' | tail -1)
+    echo "$TEMP" | awk '{printf "The subdomain web-02 is a %s record and points to %s\n", $4, $5}'
+else
+    TEMP=$(dig "$2.$1" | grep -A1 'ANSWER SECTION:' | tail -1)
+    echo "$TEMP" | awk -v subdom="$2" '{printf "The subdomain %s is a %s record and points to %s\n", subdom, $4, $5}'
+fi
