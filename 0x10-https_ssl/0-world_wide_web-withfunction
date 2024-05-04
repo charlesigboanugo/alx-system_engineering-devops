@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# bash script that prints subdomain records of A domain
+
+TEMP=""
+
+getDnsline() {
+    dig "$1.$2" | grep -A1 'ANSWER SECTION:' | tail -1
+    return 0
+}
+
+if [[ $# -lt 2 ]]; then
+    TEMP=$(getDnsline "www" "$1")
+    echo "$TEMP" | awk '{printf "The subdomain www is a %s record and points to %s\n", $4, $5}'
+    TEMP=$(getDnsline "lb-01" "$1")
+    echo "$TEMP" | awk '{printf "The subdomain lb-01 is a %s record and points to %s\n", $4, $5}'
+    TEMP=$(getDnsline "web-01" "$1") 
+    echo "$TEMP" | awk '{printf "The subdomain web-01 is a %s record and points to %s\n", $4, $5}'
+    TEMP=$(getDnsline "web-02" "$1")
+    echo "$TEMP" | awk '{printf "The subdomain web-02 is a %s record and points to %s\n", $4, $5}'
+else
+    TEMP=$(getDnsline "$2" "$1")
+    echo "$TEMP" | awk -v subdom="$2" '{printf "The subdomain %s is a %s record and points to %s\n", subdom, $4, $5}'
+fi
