@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#configures a brand new ubuntu machine, i.e installs haproxy and configures it
+
+HAPROX_CONFIG='/etc/haproxy/haproxy.cfg'
+
+apt-get -y update
+apt-get -y install --no-install-recommends software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-2.9
+apt-get -y install haproxy=2.9.\*
+
+#check for proper installation and then backup configuration file
+if [ -e "$HAPROX_CONFIG" ]; then
+        cp "$HAPROX_CONFIG" "$HAPROX_CONFIG".backup
+else
+        echo "Missing configuration file" >&2
+        exit 1
+fi
+
+#configures haproxy to use layer 4 (tcp) load balancing by default 
+sed -i "s|mode\thttp|mode\ttcp|" "${HAPROX_CONFIG}"
+sed -i "s|option\thttplog|option\ttcplog|" "${HAPROX_CONFIG}"
+
+#edit configuration to balance load between web1 and web2 servers
+echo '
+frontend website-frontend
+	bind *:80
+	mode tcp
+	default_backend website-backend
+
+backend website-backend
+	balance roundrobin
+	mode tcp
+	server 303263-web-01 54.146.87.20:80 check
+	server 303263-web-02 100.25.197.92:80 check' >> $HAPROX_CONFIG
+
+service haproxy restart

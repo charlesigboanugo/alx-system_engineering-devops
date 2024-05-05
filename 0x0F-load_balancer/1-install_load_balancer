@@ -1,36 +1,40 @@
 #!/usr/bin/env bash
-#configures a brand new ubuntu machine, i.e installs haproxy and configures it
+#Installs and configures HAproxy in a load balancer server
 
-HAPROX_CONFIG='/etc/haproxy/haproxy.cfg'
+apt-get install -y software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-1.8
+apt-get update
+apt-get install -y haproxy=1.8.\*
 
-apt-get -y update
-apt-get -y install --no-install-recommends software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-2.9
-apt-get -y install haproxy=2.9.\*
+echo "ENABLED=1" >> /etc/default/haproxy
+mv /etc/haproxy/haproxy.cfg{,.original}
+touch /etc/haproxy/haproxy.cfg
 
-#check for proper installation and then backup configuration file
-if [ -e "$HAPROX_CONFIG" ]; then
-        cp "$HAPROX_CONFIG" "$HAPROX_CONFIG".backup
-else
-        echo "Missing configuration file" >&2
-        exit 1
-fi
+printf %s "global
+    log 127.0.0.1 local0 notice
+    maxconn 2000
+    user haproxy
+    group haproxy
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    retries 3
+    option redispatch
+    timeout connect  5000
+    timeout client  10000
+    timeout server  10000
+listen hbnb
+    bind 0.0.0.0:80
+    mode http
+    stats enable
+    stats uri /haproxy?stats
+    balance roundrobin
+    option httpclose
+    option forwardfor
+    server 303263-web-01 54.146.87.20:80 check
+    server 303263-web-02 100.25.197.92:80 check
+" >> /etc/haproxy/haproxy.cfg
 
-#configures haproxy to use layer 4 (tcp) load balancing by default 
-sed -i "s|mode\thttp|mode\ttcp|" "${HAPROX_CONFIG}"
-sed -i "s|option\thttplog|option\ttcplog|" "${HAPROX_CONFIG}"
-
-#edit configuration to balance load between web1 and web2 servers
-echo '
-frontend website-frontend
-	bind *:80
-	mode tcp
-	default_backend website-backend
-
-backend website-backend
-	balance roundrobin
-	mode tcp
-	server 303263-web-01 54.146.87.20:80 check
-	server 303263-web-02 100.25.197.92:80 check' >> $HAPROX_CONFIG
-
-service haproxy restart
+service haproxy start
