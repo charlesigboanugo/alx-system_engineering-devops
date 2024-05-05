@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# Setting up server to curl port 80 with no issues
-apt-get update
-apt-get -y install curl
-rm /etc/nginx/sites-available/*
-rm /etc/nginx/sites-enabled/*~
-sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
-sudo service nginx restart
+# This script configures Nginx to listen on port 80 of all active IPv4 IPs
+sed -i 's/listen 80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
+nginx -s reload
