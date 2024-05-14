@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# runs `whoami` command as the soecified user then swiches back to the original user
+
+if [ $# -ne 1 ]; then
+	echo "USEAGE: $0 <user>"
+else
+	sudo -u "$1" whoami
+fi
