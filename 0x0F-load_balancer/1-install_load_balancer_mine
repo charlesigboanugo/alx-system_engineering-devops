@@ -30,7 +30,7 @@ frontend website-frontend
 backend website-backend
 	balance roundrobin
 	mode tcp
-	server 303263-web-01 54.146.87.20:80 check
-	server 303263-web-02 100.25.197.92:80 check' >> $HAPROX_CONFIG
+	server 303263-web-01 18.206.232.58:80 check
+	server 303263-web-02 52.86.82.162:80 check' >> $HAPROX_CONFIG
 
 service haproxy restart
