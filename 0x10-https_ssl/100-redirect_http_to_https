@@ -34,21 +34,27 @@ defaults
 	errorfile 504 /etc/haproxy/errors/504.http
 
 frontend website-frontend_http
-	bind *:80
-	mode http
-	option forwardfor
-	http-request add-header X-Forwarded-Proto http
-	redirect scheme https code 301
+        bind *:80
+        mode http
+        acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+        option forwardfor
+        http-request add-header X-Forwarded-Proto http if !letsencrypt-acl
+        redirect scheme https code 301 if !letsencrypt-acl
+        use_backend letsencrypt-backend
 
 frontend website-frontend_https
-	bind *:443 ssl crt /etc/haproxy/certs/www.underspace.tech.pem
-	mode http
-	option forwardfor
-	http-request add-header X-Forwarded-Proto https
-	default_backend website-backend
+        bind *:443 ssl crt /etc/haproxy/certs/underspace.tech
+        mode http
+        option forwardfor
+        http-request add-header X-Forwarded-Proto https
+        default_backend website-backend
 
 backend website-backend
-	balance roundrobin
-	mode http
-	server web1 54.146.87.20:80 check
-	server web2 100.25.197.92:80 check
+        balance roundrobin
+        mode http
+        server web1 18.206.232.58:80 check
+        server web2 52.86.82.162:80 check
+
+backend letsencrypt-backend
+        mode http
+        server standalone_certbot 127.0.0.1:8080

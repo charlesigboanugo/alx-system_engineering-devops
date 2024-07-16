@@ -20,6 +20,8 @@ fi
 sed -i "s|mode\thttp|mode\ttcp|" "${HAPROX_CONFIG}"
 sed -i "s|option\thttplog|option\ttcplog|" "${HAPROX_CONFIG}"
 
+echo "ENABLED=1" >> /etc/default/haproxy
+
 #edit configuration to balance load between web1 and web2 servers
 echo '
 frontend website-frontend
