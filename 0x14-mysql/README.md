@@ -13,7 +13,7 @@ server on the database `tyrell_corp`.
 
 * [4-mysql_configuration_replica](./4-mysql_configuration_replica): The MySQL
 `my.conf` configuration file used to set up my second server as the replica
-database server on the database `tyrell_corp`.
+database server on the database `tyrell_corp`
 
 * [5-mysql_backup](./5-mysql_backup): Bash script that generates a compressed
 `tar.gz` archive from a MySQL dump.
