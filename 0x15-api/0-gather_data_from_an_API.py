@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 # script to gather data from an API
+
+"""
+module documentatiom
+"""
+
 import requests
 import sys
 
